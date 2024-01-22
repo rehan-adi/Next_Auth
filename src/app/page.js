@@ -2,8 +2,8 @@
 
 export default function Home() {
   return (
-    <div className="bg-[200vh] text-white w-auto bg-blue-950">
-      <main className="bg-blue-950 flex justify-center gap-20 items-center h-[90vh]">
+    <div className="text-white w-auto bg-blue-950">
+      <main className="bg-blue-950 flex justify-center gap-20 items-center h-[100vh]">
         <div className="flex flex-col">
           <h1 className="text-4xl mb-8 ">
             Helping startups achive online <br />pressence with <span className="font-bold">webflow websites</span>

@@ -2,7 +2,7 @@ import React from 'react'
 
 function page() {
     return (
-        <div className='h-[90vh] w-auto bg-blue-950'>
+        <div className='h-[100vh] w-auto bg-blue-950'>
             <div className='flex justify-center pt-40 items-center gap-20'>
                 <div className='bg-[#ebc7b5] flex justify-start pt-10 flex-col items-center rounded-3xl h-[50vh] w-[20vw]'>
                       <h1>DESIGINE</h1>

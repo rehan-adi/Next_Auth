@@ -3,7 +3,7 @@ import React from 'react'
 
 function page() {
   return (
-    <div className='h-[10vh] flex justify-between px-36 items-center  w-auto bg-blue-950 text-white'>
+    <div className='h-[10vh] flex justify-between px-36 fixed items-center w-full bg-blue-950 text-white'>
       <Link href="/">
         <img width={140} src='	https://assets.website-files.com/5c6648378238e311a00c7e61/5c6648378238e3d5880c7e9f_logo-ts-white.png' />
       </Link>
