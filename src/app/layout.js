@@ -1,5 +1,6 @@
 import { Anek_Malayalam } from "next/font/google";
 import "./globals.css";
+import Navbar from '@/app/Navbar/page'
 
 const Font  = Anek_Malayalam ({ subsets: ["latin"] });
 
@@ -11,7 +12,10 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
-      <body className={Font.className}>{children}</body>
+      <body className={Font.className}>
+        <Navbar />
+        {children}
+        </body>
     </html>
   );
 }
