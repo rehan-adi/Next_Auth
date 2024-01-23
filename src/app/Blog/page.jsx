@@ -10,10 +10,10 @@ export default async function page() {
   }
 
   return (
-    <div className='w-auto flex justify-center flex-col items-center text-white bg-blue-950 h-[180vh]'>
-        <h1 className="text-2xl mb-12 font-semibold">Our Blog</h1>
+    <div className='w-auto flex justify-center pt-32  flex-col items-center text-white bg-blue-950 h-[250vh]'>
+        <h1 className="text-2xl mb-10 font-semibold">Our Blog</h1>
         {groupedData.map((group, index) => (
-          <div key={index} className="flex justify-center px-40 w-[80vw] items-center gap-4">
+          <div key={index} className="flex justify-center mt-20 px-40 w-[80vw] items-center gap-4">
             {group.map((photo) => (
               <div key={photo.id}>
                 <img src={photo.url} width={200} alt={photo.title} />
