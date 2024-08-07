@@ -29,7 +29,7 @@ const Signup = () => {
                   type="email"
                   required
                   autoComplete="email"
-                  className="block w-full rounded-md border border-white outline-none bg-[#000924] py-1.5 shadow-sm text-white sm:text-sm px-3 sm:leading-6"
+                  className="block w-full rounded-md border border-white outline-none bg-[#000924] py-2 shadow-sm text-white sm:text-sm px-3 sm:leading-6"
                 />
               </div>
             </div>
@@ -58,7 +58,7 @@ const Signup = () => {
                   type="password"
                   required
                   autoComplete="current-password"
-                  className="block w-full rounded-md border px-3 border-white outline-none bg-[#000924] py-1.5  shadow-sm sm:text-sm text-white sm:leading-6"
+                  className="block w-full rounded-md border px-3 border-white outline-none bg-[#000924] py-2 shadow-sm sm:text-sm text-white sm:leading-6"
                 />
               </div>
             </div>
@@ -66,7 +66,7 @@ const Signup = () => {
             <div className="mt-3">
               <button
                 type="submit"
-                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign up
               </button>
