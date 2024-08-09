@@ -40,8 +40,14 @@ export const POST = async (req: NextRequest) => {
       },
       { status: 201 }
     );
-  } catch (error) {
+  } catch (error: any) {
     console.error(error);
+    if (error.name === "ZodError") {
+      return NextResponse.json(
+        { error: "Validation failed", details: error.errors },
+        { status: 400 }
+      );
+    }
     return NextResponse.json(
       { success: false, message: "Internal server error" },
       { status: 500 }
