@@ -3,11 +3,11 @@
 @tailwind components;
 @tailwind utilities;
 
-*{
-   padding: 0;
-   margin: 0;
-   box-sizing: border-box;
-   font-family: "Raleway", sans-serif;
-   font-optical-sizing: auto;
-   font-style: normal;
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    font-family: 'Raleway', sans-serif;
+    font-optical-sizing: auto;
+    font-style: normal;
 }

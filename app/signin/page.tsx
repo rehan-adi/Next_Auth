@@ -1,12 +1,11 @@
-import Signin from "@/components/Signin"
-
+import Signin from '@/components/Signin';
 
 const signin = () => {
-  return (
-    <>
-       <Signin /> 
-    </>
-  )
-}
+    return (
+        <>
+            <Signin />
+        </>
+    );
+};
 
-export default signin
+export default signin;
