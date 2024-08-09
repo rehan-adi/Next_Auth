@@ -1,4 +1,34 @@
+"use client"
+
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/navigation';
+
 const Signup = () => {
+    const [name, setName] = useState<string>('');
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+
+    const router = useRouter();
+
+    const handleSubmit = async (e: React.FormEvent) => {
+        e.preventDefault();
+        try {
+            const response = await axios.post('/api/auth/signup', {
+                name,
+                email,
+                password
+            });
+            const result = response.data;
+            if(result.success) {
+                alert('User created successfully!');
+                router.push('/signin');
+            }
+        } catch (error) {
+            console.error('Error signing up:', error);
+        }
+    };
+
     return (
         <>
             <div className="flex min-h-screen bg-[#000924] flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -14,7 +44,27 @@ const Signup = () => {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form action="#" method="POST" className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-6">
+                        <div>
+                            <label
+                                htmlFor="name"
+                                className="block text-sm font-medium leading-6 text-white"
+                            >
+                                Name
+                            </label>
+                            <div className="mt-2">
+                                <input
+                                    id="name"
+                                    name="name"
+                                    type="text"
+                                    required
+                                    autoComplete="name"
+                                    value={name}
+                                    onChange={(e) => setName(e.target.value)}
+                                    className="block w-full rounded-md border border-white outline-none bg-[#000924] py-2 shadow-sm text-white sm:text-sm px-3 sm:leading-6"
+                                />
+                            </div>
+                        </div>
                         <div>
                             <label
                                 htmlFor="email"
@@ -29,6 +79,10 @@ const Signup = () => {
                                     type="email"
                                     required
                                     autoComplete="email"
+                                    value={email}
+                                    onChange={(e) =>
+                                        setEmail(e.target.value)
+                                    }
                                     className="block w-full rounded-md border border-white outline-none bg-[#000924] py-2 shadow-sm text-white sm:text-sm px-3 sm:leading-6"
                                 />
                             </div>
@@ -58,6 +112,10 @@ const Signup = () => {
                                     type="password"
                                     required
                                     autoComplete="current-password"
+                                    value={password}
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
                                     className="block w-full rounded-md border px-3 border-white outline-none bg-[#000924] py-2 shadow-sm sm:text-sm text-white sm:leading-6"
                                 />
                             </div>
