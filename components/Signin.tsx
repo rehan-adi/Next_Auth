@@ -1,6 +1,36 @@
-import React from 'react';
+'use client';
+
+import React, { useState } from 'react';
+import axios from 'axios';
+import { useRouter } from 'next/router';
 
 const Signin = () => {
+    const [email, setEmail] = useState<string>('');
+    const [password, setPassword] = useState<string>('');
+
+    const router = useRouter();
+
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        try {
+            const response = await axios.post('/api/auth/signin', {
+                email,
+                password
+            });
+
+            const data = await response.data;
+
+            if (data.success) {
+                router.push('/');
+            }
+
+            localStorage.setItem('token', data.token);
+        } catch (error) {
+            console.error(error);
+        }
+    };
+
     return (
         <>
             <div className="flex min-h-screen bg-[#000924] flex-1 flex-col justify-center px-6 py-12 lg:px-8">
@@ -16,7 +46,7 @@ const Signin = () => {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form action="#" method="POST" className="space-y-6">
+                    <form onSubmit={handleSubmit} className="space-y-6">
                         <div>
                             <label
                                 htmlFor="email"
@@ -31,6 +61,8 @@ const Signin = () => {
                                     type="email"
                                     required
                                     autoComplete="email"
+                                    value={email}
+                                    onChange={(e) => setEmail(e.target.value)}
                                     className="block w-full rounded-md border border-white outline-none bg-[#000924] py-2 shadow-sm text-white sm:text-sm px-3 sm:leading-6"
                                 />
                             </div>
@@ -60,6 +92,10 @@ const Signin = () => {
                                     type="password"
                                     required
                                     autoComplete="current-password"
+                                    value={password}
+                                    onChange={(e) =>
+                                        setPassword(e.target.value)
+                                    }
                                     className="block w-full rounded-md border px-3 border-white outline-none bg-[#000924] py-2  shadow-sm sm:text-sm text-white sm:leading-6"
                                 />
                             </div>
