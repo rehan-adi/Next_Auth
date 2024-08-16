@@ -18,12 +18,19 @@ export const POST = async (req: NextRequest) => {
         if (!user) {
             return NextResponse.json(
                 {
-                    message: 'User not found , please signup and try again'
+                    message: 'User not found. Please sign up and try again.'
                 },
                 { status: 400 }
             );
         }
 
+        if (!user.isVerified) {
+            return NextResponse.json(
+                { message: 'Please verify your email address before signing in.' },
+                { status: 403 }
+            );
+        }
+        
         const checkPassword = await bcrypt.compare(password, user.password);
 
         if (!checkPassword) {
