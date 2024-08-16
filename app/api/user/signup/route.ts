@@ -2,6 +2,9 @@ import { NextRequest, NextResponse } from 'next/server';
 import bcrypt from 'bcrypt';
 import prisma from '@/lib/prisma';
 import { signupValidation } from '@/validations/auth.validation';
+import { resend } from '@/lib/resend';
+import { randomBytes } from 'crypto';
+import { verificationEmailTemplate } from '@/emails/verificationEmail';
 
 export const POST = async (req: NextRequest) => {
     try {
@@ -23,12 +26,26 @@ export const POST = async (req: NextRequest) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
+        const verificationToken = randomBytes(32).toString('hex');
+        const verificationExpiry = new Date(Date.now() + 1000 * 60 * 60 * 24);
+
         const user = await prisma.user.create({
             data: {
                 name,
                 email,
-                password: hashedPassword
+                password: hashedPassword,
+                verificationToken,
+                verificationExpiry
             }
+        });
+
+        const verificationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/verify-email?token=${verificationToken}`;
+
+        await resend.emails.send({
+            from: 'Acme <onboarding@resend.dev>',
+            to: email,
+            subject: 'Verify Your Email Address',
+            html: verificationEmailTemplate(verificationUrl, name)
         });
 
         return NextResponse.json(
