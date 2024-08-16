@@ -39,7 +39,7 @@ export const POST = async (req: NextRequest) => {
             }
         });
 
-        const verificationUrl = `${process.env.NEXT_PUBLIC_BASE_URL}/verify-email?token=${verificationToken}`;
+        const verificationUrl = `http://localhost:3000/api/user/verify-email?token=${verificationToken}`;
 
         await resend.emails.send({
             from: 'Acme <onboarding@resend.dev>',
