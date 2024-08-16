@@ -3,11 +3,11 @@ import { NextResponse } from 'next/server';
 import type { NextRequest } from 'next/server';
 
 export function middleware(req: NextRequest) {
-  console.log('Middleware executed');
+    console.log('Middleware executed');
 
-  return NextResponse.next();
+    return NextResponse.next();
 }
 
 export const config = {
-  matcher: ['/api/:path*'],
+    matcher: ['/api/:path*']
 };

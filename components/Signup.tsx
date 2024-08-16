@@ -1,4 +1,4 @@
-"use client"
+'use client';
 
 import React, { useState } from 'react';
 import axios from 'axios';
@@ -20,7 +20,7 @@ const Signup = () => {
                 password
             });
             const result = response.data;
-            if(result.success) {
+            if (result.success) {
                 alert('User created successfully!');
                 router.push('/signin');
             }
@@ -80,9 +80,7 @@ const Signup = () => {
                                     required
                                     autoComplete="email"
                                     value={email}
-                                    onChange={(e) =>
-                                        setEmail(e.target.value)
-                                    }
+                                    onChange={(e) => setEmail(e.target.value)}
                                     className="block w-full rounded-md border border-white outline-none bg-[#000924] py-2 shadow-sm text-white sm:text-sm px-3 sm:leading-6"
                                 />
                             </div>
