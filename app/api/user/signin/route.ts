@@ -65,6 +65,8 @@ export const POST = async (req: NextRequest) => {
             sameSite: 'strict',
             path: '/'
         });
+
+        return response;
     } catch (error: any) {
         console.error(error);
         if (error.name === 'ZodError') {
