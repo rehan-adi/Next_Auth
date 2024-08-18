@@ -9,11 +9,18 @@ const Signup = () => {
     const [name, setName] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+        if (password.length < 6) {
+            return toast.error('Password must be at least 6 characters long.');
+        }
+
         e.preventDefault();
+        setIsSubmitting(true);
+
         try {
             const response = await axios.post('/api/user/signup', {
                 name,
@@ -22,7 +29,7 @@ const Signup = () => {
             });
             const result = response.data;
             if (result.success) {
-                toast.success('User created successfully!');;
+                toast.success('User created successfully!');
                 router.push('/signin');
             }
         } catch (error: any) {
@@ -32,6 +39,8 @@ const Signup = () => {
                 toast.error('An unexpected error occurred. Please try again.');
             }
             console.error('Error signing up:', error);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -128,9 +137,10 @@ const Signup = () => {
                         <div className="mt-3">
                             <button
                                 type="submit"
-                                className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
+                                className={`flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                                disabled={isSubmitting}
                             >
-                                Sign up
+                                {isSubmitting ? 'Signing up...' : 'Sign up'}
                             </button>
                         </div>
                     </form>
