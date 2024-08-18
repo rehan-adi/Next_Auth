@@ -8,11 +8,18 @@ import { toast } from 'react-hot-toast';
 const Signin = () => {
     const [email, setEmail] = useState<string>('');
     const [password, setPassword] = useState<string>('');
+    const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
     const router = useRouter();
 
     const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
+
+        if (password.length < 6) {
+            return toast.error('Password must be at least 6 characters long.');
+        }
+
+        setIsSubmitting(true);
 
         try {
             const response = await axios.post('/api/user/signin', {
@@ -23,11 +30,10 @@ const Signin = () => {
             const data = await response.data;
 
             if (data.success) {
+                localStorage.setItem('token', data.token);
                 toast.success('Logged in successfully!');
                 router.push('/');
             }
-
-            localStorage.setItem('token', data.token);
         } catch (error: any) {
             if (error.response && error.response.data) {
                 toast.error(error.response.data.message || 'Signin failed.');
@@ -35,6 +41,8 @@ const Signin = () => {
                 toast.error('An unexpected error occurred. Please try again.');
             }
             console.error('Error signing in:', error);
+        } finally {
+            setIsSubmitting(false);
         }
     };
 
@@ -111,9 +119,10 @@ const Signin = () => {
                         <div className="mt-3">
                             <button
                                 type="submit"
+                                disabled={isSubmitting}
                                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-2 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
                             >
-                                Sign in
+                                {isSubmitting ? 'Signing in...' : 'Sign in'}
                             </button>
                         </div>
                     </form>
