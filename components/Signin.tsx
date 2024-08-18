@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 const Signin = () => {
     const [email, setEmail] = useState<string>('');
@@ -22,12 +23,18 @@ const Signin = () => {
             const data = await response.data;
 
             if (data.success) {
+                toast.success('Logged in successfully!');
                 router.push('/');
             }
 
             localStorage.setItem('token', data.token);
-        } catch (error) {
-            console.error(error);
+        } catch (error: any) {
+            if (error.response && error.response.data) {
+                toast.error(error.response.data.message || 'Signin failed.');
+            } else {
+                toast.error('An unexpected error occurred. Please try again.');
+            }
+            console.error('Error signing in:', error);
         }
     };
 
@@ -114,7 +121,7 @@ const Signin = () => {
                     <p className="mt-10 text-center text-sm text-gray-500">
                         Don't have a account?{' '}
                         <a
-                            href="#"
+                            href="/signup"
                             className="font-semibold leading-6 text-indigo-600 hover:text-indigo-500"
                         >
                             Sign Up to continue
