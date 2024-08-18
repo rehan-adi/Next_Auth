@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import { useRouter } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 const Signup = () => {
     const [name, setName] = useState<string>('');
@@ -21,7 +22,7 @@ const Signup = () => {
             });
             const result = response.data;
             if (result.success) {
-                alert('User created successfully!');
+                toast.success('User created successfully!');;
                 router.push('/signin');
             }
         } catch (error) {
