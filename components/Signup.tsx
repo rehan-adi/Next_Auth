@@ -25,7 +25,12 @@ const Signup = () => {
                 toast.success('User created successfully!');;
                 router.push('/signin');
             }
-        } catch (error) {
+        } catch (error: any) {
+            if (error.response && error.response.data) {
+                toast.error(error.response.data.message || 'Signup failed.');
+            } else {
+                toast.error('An unexpected error occurred. Please try again.');
+            }
             console.error('Error signing up:', error);
         }
     };
