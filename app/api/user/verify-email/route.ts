@@ -31,8 +31,8 @@ export const GET = async (req: NextRequest) => {
         data: {
             isVerified: true,
             verificationToken: null,
-            verificationExpiry: null,
-        },
+            verificationExpiry: null
+        }
     });
 
     return NextResponse.json(

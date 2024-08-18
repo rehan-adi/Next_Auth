@@ -26,11 +26,14 @@ export const POST = async (req: NextRequest) => {
 
         if (!user.isVerified) {
             return NextResponse.json(
-                { message: 'Please verify your email address before signing in.' },
+                {
+                    message:
+                        'Please verify your email address before signing in.'
+                },
                 { status: 403 }
             );
         }
-        
+
         const checkPassword = await bcrypt.compare(password, user.password);
 
         if (!checkPassword) {
@@ -46,7 +49,7 @@ export const POST = async (req: NextRequest) => {
             expiresIn: '1d'
         });
 
-        return NextResponse.json(
+        const response = NextResponse.json(
             {
                 success: true,
                 data: { token },
@@ -55,6 +58,13 @@ export const POST = async (req: NextRequest) => {
             },
             { status: 200 }
         );
+
+        response.cookies.set('token', token, {
+            httpOnly: true,
+            maxAge: 24 * 60 * 60,
+            sameSite: 'strict',
+            path: '/'
+        });
     } catch (error: any) {
         console.error(error);
         if (error.name === 'ZodError') {
