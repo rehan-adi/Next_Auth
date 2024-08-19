@@ -1,32 +1,31 @@
 'use client';
 
-import React, { useState } from 'react';
+import { z } from 'zod';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { signupValidation } from '@/validations/auth.validation';
+
+type FormField = z.infer<typeof signupValidation>;
 
 const Signup = () => {
-    const [name, setName] = useState<string>('');
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+
+    const { register, handleSubmit, formState: { errors } } = useForm<FormField>({
+        resolver: zodResolver(signupValidation)
+    });
 
     const router = useRouter();
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        if (password.length < 6) {
-            return toast.error('Password must be at least 6 characters long.');
-        }
+    const onSubmit: SubmitHandler<FormField> = async (data) => {
 
-        e.preventDefault();
         setIsSubmitting(true);
 
         try {
-            const response = await axios.post('/api/user/signup', {
-                name,
-                email,
-                password
-            });
+            const response = await axios.post('/api/user/signup', data);
             const result = response.data;
             if (result.success) {
                 toast.success('User created successfully!');
@@ -59,7 +58,10 @@ const Signup = () => {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="space-y-6"
+                    >
                         <div>
                             <label
                                 htmlFor="name"
@@ -70,14 +72,13 @@ const Signup = () => {
                             <div className="mt-2">
                                 <input
                                     id="name"
-                                    name="name"
                                     type="text"
+                                    {...register('name')}
                                     required
                                     autoComplete="name"
-                                    value={name}
-                                    onChange={(e) => setName(e.target.value)}
                                     className="block w-full rounded-md border border-white outline-none bg-[#000924] py-2 shadow-sm text-white sm:text-sm px-3 sm:leading-6"
                                 />
+                                {errors.name && <p className="text-red-500">{errors.name.message}</p>}
                             </div>
                         </div>
                         <div>
@@ -90,14 +91,13 @@ const Signup = () => {
                             <div className="mt-2">
                                 <input
                                     id="email"
-                                    name="email"
                                     type="email"
+                                    {...register('email')}
                                     required
                                     autoComplete="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
                                     className="block w-full rounded-md border border-white outline-none bg-[#000924] py-2 shadow-sm text-white sm:text-sm px-3 sm:leading-6"
                                 />
+                                {errors.email && <p className="text-red-500">{errors.email.message}</p>}
                             </div>
                         </div>
 
@@ -121,16 +121,13 @@ const Signup = () => {
                             <div className="mt-2">
                                 <input
                                     id="password"
-                                    name="password"
                                     type="password"
+                                    {...register('password')}
                                     required
                                     autoComplete="current-password"
-                                    value={password}
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
                                     className="block w-full rounded-md border px-3 border-white outline-none bg-[#000924] py-2 shadow-sm sm:text-sm text-white sm:leading-6"
                                 />
+                                {errors.password && <p className="text-red-500">{errors.password.message}</p>}
                             </div>
                         </div>
 
