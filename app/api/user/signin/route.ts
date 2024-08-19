@@ -68,7 +68,7 @@ export const POST = async (req: NextRequest) => {
 
         return response;
     } catch (error: any) {
-        console.error(error);
+        console.error('Error during signin:', error);
         if (error.name === 'ZodError') {
             return NextResponse.json(
                 { error: 'Validation failed', details: error.errors },

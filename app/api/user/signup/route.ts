@@ -52,12 +52,12 @@ export const POST = async (req: NextRequest) => {
             {
                 success: true,
                 data: { id: user.id, name: user.name, email: user.email },
-                message: 'User created successfully'
+                message: 'User created successfully. Please check your email to verify your account.'
             },
             { status: 201 }
         );
     } catch (error: any) {
-        console.error(error);
+        console.error('Error during signup:', error);
         if (error.name === 'ZodError') {
             return NextResponse.json(
                 { error: 'Validation failed', details: error.errors },
