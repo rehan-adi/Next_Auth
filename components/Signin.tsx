@@ -83,6 +83,7 @@ const Signin = () => {
                                     {...register('email')}
                                     className="block w-full rounded-md border border-white outline-none bg-[#000924] py-2 shadow-sm text-white sm:text-sm px-3 sm:leading-6"
                                 />
+                                {errors.email && <p className="text-red-500">{errors.email.message}</p>}
                             </div>
                         </div>
 
@@ -112,6 +113,7 @@ const Signin = () => {
                                     {...register('password')}
                                     className="block w-full rounded-md border px-3 border-white outline-none bg-[#000924] py-2  shadow-sm sm:text-sm text-white sm:leading-6"
                                 />
+                                {errors.password && <p className="text-red-500">{errors.password.message}</p>}
                             </div>
                         </div>
 
