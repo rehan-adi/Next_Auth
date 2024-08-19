@@ -4,9 +4,9 @@ import { z } from 'zod';
 import axios from 'axios';
 import { useState } from 'react';
 import { toast } from 'react-hot-toast';
-import { SubmitHandler, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { SubmitHandler, useForm } from 'react-hook-form';
 import { signinValidation } from '@/validations/auth.validation';
 
 type FormField = z.infer<typeof signinValidation>;
@@ -28,8 +28,6 @@ const Signin = () => {
 
         try {
             const response = await axios.post('/api/user/signin', data);
-
-            const result = await response.data;
             const { token, success } = response.data;
 
             if (success && token) {
@@ -37,7 +35,7 @@ const Signin = () => {
                 toast.success('Logged in successfully!');
                 router.push('/');
             }
-            
+
         } catch (error: any) {
             if (error.response && error.response.data) {
                 toast.error(error.response.data.message || 'Signin failed.');
