@@ -1,39 +1,43 @@
 'use client';
 
-import React, { useState } from 'react';
+import { z } from 'zod';
 import axios from 'axios';
-import { useRouter } from 'next/navigation';
+import { useState } from 'react';
 import { toast } from 'react-hot-toast';
+import { SubmitHandler, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { zodResolver } from '@hookform/resolvers/zod';
+import { signinValidation } from '@/validations/auth.validation';
+
+type FormField = z.infer<typeof signinValidation>;
 
 const Signin = () => {
-    const [email, setEmail] = useState<string>('');
-    const [password, setPassword] = useState<string>('');
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm<FormField>({
+        resolver: zodResolver(signinValidation)
+    });
 
     const router = useRouter();
 
-    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        if (password.length < 6) {
-            return toast.error('Password must be at least 6 characters long.');
-        }
-
+    const onSubmit: SubmitHandler<FormField> = async (data) => {
         setIsSubmitting(true);
 
         try {
-            const response = await axios.post('/api/user/signin', {
-                email,
-                password
-            });
+            const response = await axios.post('/api/user/signin', data);
 
-            const data = await response.data;
+            const result = await response.data;
+            const { token, success } = response.data;
 
-            if (data.success) {
-                localStorage.setItem('token', data.token);
+            if (success && token) {
+                localStorage.setItem('token', token);
                 toast.success('Logged in successfully!');
                 router.push('/');
             }
+            
         } catch (error: any) {
             if (error.response && error.response.data) {
                 toast.error(error.response.data.message || 'Signin failed.');
@@ -61,7 +65,10 @@ const Signin = () => {
                 </div>
 
                 <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-                    <form onSubmit={handleSubmit} className="space-y-6">
+                    <form
+                        onSubmit={handleSubmit(onSubmit)}
+                        className="space-y-6"
+                    >
                         <div>
                             <label
                                 htmlFor="email"
@@ -72,12 +79,10 @@ const Signin = () => {
                             <div className="mt-2">
                                 <input
                                     id="email"
-                                    name="email"
                                     type="email"
                                     required
                                     autoComplete="email"
-                                    value={email}
-                                    onChange={(e) => setEmail(e.target.value)}
+                                    {...register('email')}
                                     className="block w-full rounded-md border border-white outline-none bg-[#000924] py-2 shadow-sm text-white sm:text-sm px-3 sm:leading-6"
                                 />
                             </div>
@@ -103,14 +108,10 @@ const Signin = () => {
                             <div className="mt-2">
                                 <input
                                     id="password"
-                                    name="password"
                                     type="password"
                                     required
                                     autoComplete="current-password"
-                                    value={password}
-                                    onChange={(e) =>
-                                        setPassword(e.target.value)
-                                    }
+                                    {...register('password')}
                                     className="block w-full rounded-md border px-3 border-white outline-none bg-[#000924] py-2  shadow-sm sm:text-sm text-white sm:leading-6"
                                 />
                             </div>
