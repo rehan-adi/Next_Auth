@@ -28,10 +28,9 @@ const Signin = () => {
 
         try {
             const response = await axios.post('/api/user/signin', data);
-            const { token, success } = response.data;
+            const { success } = response.data;
 
-            if (success && token) {
-                localStorage.setItem('token', token);
+            if (success) {
                 toast.success('Logged in successfully!');
                 router.push('/');
             }
