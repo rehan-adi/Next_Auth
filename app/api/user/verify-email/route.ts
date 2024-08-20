@@ -1,5 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+import { resend } from '@/lib/resend';
+import WelcomeEmailTemplate from '@/emails/WelcomeEmailTemplate';
 
 export const GET = async (req: NextRequest) => {
     try {
@@ -34,6 +36,13 @@ export const GET = async (req: NextRequest) => {
                 verificationToken: null,
                 verificationExpiry: null
             }
+        });
+
+        await resend.emails.send({
+            from: 'Acme <onboarding@resend.dev>',
+            to: user.email,
+            subject: 'Welcome to Acme',
+            react: WelcomeEmailTemplate({ name: user.name })
         });
 
         return NextResponse.json(
