@@ -10,10 +10,10 @@ import {
   } from '@react-email/components';
   
   interface WelcomeEmailProps {
-    username: string;
+    name: string;
   }
   
-  export default function WelcomeEmailTemplate({ username }: WelcomeEmailProps) {
+  export default function WelcomeEmailTemplate({ name }: WelcomeEmailProps) {
     return (
       <Html lang="en" dir="ltr">
         <Head>
@@ -32,7 +32,7 @@ import {
         <Preview>Welcome to Our Service</Preview>
         <Section>
           <Row>
-            <Heading as="h2">Welcome, {username}!</Heading>
+            <Heading as="h2">Welcome, {name}!</Heading>
           </Row>
           <Row>
             <Text>
