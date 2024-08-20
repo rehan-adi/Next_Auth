@@ -7,7 +7,7 @@ export const POST = async () => {
                 success: true,
                 message: 'Logout successful'
             },
-            { status: 204 }
+            { status: 200 }
         );
         response.cookies.set('token', '', {
             httpOnly: true,
