@@ -32,7 +32,7 @@ const VerifyEmail = () => {
         if (response.status === 200) {
           setMessage("Your email has been successfully verified!");
           setStatus("success");
-          router.push("/login");
+          router.push("/signin");
         }
       } catch (error: any) {
         setMessage(
