@@ -8,6 +8,7 @@ import { toast } from 'react-hot-toast';
 interface User {
     name: string;
     email: string;
+    isVerified: boolean;
 }
 
 export default function Home() {
@@ -21,7 +22,7 @@ export default function Home() {
             try {
                 const response = await axios.get('/api/user/profile');
                 if (response.data.success) {
-                    setData(response.data.user);
+                    setData(response.data.user);          
                 } else {
                     setError('Failed to fetch user details.');
                 }
@@ -60,14 +61,16 @@ export default function Home() {
                     Logout
                 </button>
             </nav>
-            <div className="flex justify-center bg-[#000924] h-screen items-center">
-                <div className="border p-8 rounded">
+            <div className="flex justify-start px-6 lg:px-20 bg-[#000924] h-screen items-center">
+                <div className="flex flex-col gap-6">
+                    <h1 className='text-3xl font-semibold'>Personal Information</h1>
                     {error && <div className="text-red-500">{error}</div>}
                     {data ? (
-                        <>
-                            <div>Name: {data.name}</div>
-                            <div>Email: {data.email}</div>
-                        </>
+                        <div className='flex flex-col gap-2'>
+                            <div className='text-xl font-semibold'>Name: <span className='text-base ml-3'>{data.name}</span></div>
+                            <div className='text-xl font-semibold'>Email: <span className='text-base ml-3'>{data.email}</span></div>
+                            <div className='text-xl font-semibold'>isVerified: <span className='text-base ml-3'>{data.isVerified ? 'Verified' : 'Not-Verified'}</span></div>
+                        </div>
                     ) : (
                         <div>Loading...</div>
                     )}
