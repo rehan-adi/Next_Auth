@@ -14,14 +14,17 @@ type FormField = z.infer<typeof signupValidation>;
 const Signup = () => {
     const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
-    const { register, handleSubmit, formState: { errors } } = useForm<FormField>({
+    const {
+        register,
+        handleSubmit,
+        formState: { errors }
+    } = useForm<FormField>({
         resolver: zodResolver(signupValidation)
     });
 
     const router = useRouter();
 
     const onSubmit: SubmitHandler<FormField> = async (data) => {
-
         setIsSubmitting(true);
 
         try {
@@ -47,11 +50,6 @@ const Signup = () => {
         <>
             <div className="flex min-h-screen bg-[#000924] flex-1 flex-col justify-center px-6 py-12 lg:px-8">
                 <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-                    <img
-                        alt="Your Company"
-                        src="https://tailwindui.com/img/logos/mark.svg?color=indigo&shade=600"
-                        className="mx-auto h-10 w-auto"
-                    />
                     <h2 className="mt-10 text-center text-2xl font-bold leading-9 tracking-tight text-white">
                         Sign Up your account
                     </h2>
@@ -78,7 +76,11 @@ const Signup = () => {
                                     autoComplete="name"
                                     className="block w-full rounded-md border border-white outline-none bg-[#000924] py-2 shadow-sm text-white sm:text-sm px-3 sm:leading-6"
                                 />
-                                {errors.name && <p className="text-red-500">{errors.name.message}</p>}
+                                {errors.name && (
+                                    <p className="text-red-500">
+                                        {errors.name.message}
+                                    </p>
+                                )}
                             </div>
                         </div>
                         <div>
@@ -97,7 +99,11 @@ const Signup = () => {
                                     autoComplete="email"
                                     className="block w-full rounded-md border border-white outline-none bg-[#000924] py-2 shadow-sm text-white sm:text-sm px-3 sm:leading-6"
                                 />
-                                {errors.email && <p className="text-red-500">{errors.email.message}</p>}
+                                {errors.email && (
+                                    <p className="text-red-500">
+                                        {errors.email.message}
+                                    </p>
+                                )}
                             </div>
                         </div>
 
@@ -127,7 +133,11 @@ const Signup = () => {
                                     autoComplete="current-password"
                                     className="block w-full rounded-md border px-3 border-white outline-none bg-[#000924] py-2 shadow-sm sm:text-sm text-white sm:leading-6"
                                 />
-                                {errors.password && <p className="text-red-500">{errors.password.message}</p>}
+                                {errors.password && (
+                                    <p className="text-red-500">
+                                        {errors.password.message}
+                                    </p>
+                                )}
                             </div>
                         </div>
 
