@@ -63,13 +63,13 @@ export default function Home() {
             </nav>
             <div className="flex justify-start px-6 lg:px-20 bg-[#000924] h-screen items-center">
                 <div className="flex flex-col gap-6">
-                    <h1 className='text-3xl font-semibold'>Personal Information</h1>
+                    <h1 className='lg:text-3xl text-2xl font-semibold'>Personal Information</h1>
                     {error && <div className="text-red-500">{error}</div>}
                     {data ? (
                         <div className='flex flex-col gap-2'>
-                            <div className='text-xl font-semibold'>Name: <span className='text-base ml-3'>{data.name}</span></div>
-                            <div className='text-xl font-semibold'>Email: <span className='text-base ml-3'>{data.email}</span></div>
-                            <div className='text-xl font-semibold'>isVerified: <span className='text-base ml-3'>{data.isVerified ? 'Verified' : 'Not-Verified'}</span></div>
+                            <div className='lg:text-xl text-base font-semibold'>Name: <span className='text-base ml-3'>{data.name}</span></div>
+                            <div className='lg:text-xl text-base font-semibold'>Email: <span className='text-base ml-3'>{data.email}</span></div>
+                            <div className='lg:text-xl text-base font-semibold'>isVerified: <span className='text-base ml-3'>{data.isVerified ? 'Verified' : 'Not-Verified'}</span></div>
                         </div>
                     ) : (
                         <div>Loading...</div>
