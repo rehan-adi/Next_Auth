@@ -19,6 +19,7 @@ const VerifyEmail = () => {
         const response = await axios.post("/api/user/verify-email", {verifycode});
 
         if (response.status === 200) {
+          setStatus("success");
           setMessage("Your email has been successfully verified!");
           router.push("/signin");
         }
