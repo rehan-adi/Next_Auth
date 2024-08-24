@@ -42,7 +42,7 @@ const VerifyEmail = () => {
                 <form className="mt-4" onSubmit={verifyEmail}>
                     <label
                         htmlFor="verifyCode"
-                        className="block text-lg font-medium mb-8 text-center"
+                        className="block text-xl font-semibold mb-8 text-center"
                     >
                         Enter Verification Code
                     </label>
@@ -57,7 +57,7 @@ const VerifyEmail = () => {
                     />
                     <button
                         type="submit"
-                        className={`mt-4 w-full py-2 bg-blue-500 text-white font-semibold rounded-lg hover:bg-blue-600 transition duration-200 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        className={`mt-4 w-full py-3 text-sm bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-500 transition duration-200 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
                         {isSubmitting ? 'Verify Code...' : 'Verify Code'}
                     </button>
