@@ -3,7 +3,6 @@ import bcrypt from 'bcrypt';
 import prisma from '@/lib/prisma';
 import { signupValidation } from '@/validations/auth.validation';
 import { resend } from '@/lib/resend';
-import { randomBytes } from 'crypto';
 import { verificationEmailTemplate } from '@/emails/verificationEmail';
 
 export const POST = async (req: NextRequest) => {
