@@ -39,13 +39,11 @@ export const POST = async (req: NextRequest) => {
             }
         });
 
-        const verificationUrl = `http://localhost:3000/verify-email?token=${verificationToken}`;
-
         await resend.emails.send({
             from: 'Acme <onboarding@resend.dev>',
             to: email,
             subject: 'Verify Your Email Address',
-            html: verificationEmailTemplate(verificationUrl, name)
+            html: verificationEmailTemplate(verificationToken, name)
         });
 
         return NextResponse.json(
