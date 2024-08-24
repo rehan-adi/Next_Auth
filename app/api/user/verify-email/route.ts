@@ -5,9 +5,9 @@ import WelcomeEmailTemplate from '@/emails/WelcomeEmailTemplate';
 
 export const POST = async (req: NextRequest) => {
     try {
-        const { verificationToken } = await req.json();
+        const { verifycode } = await req.json();
 
-        if (!verificationToken) {
+        if (!verifycode) {
             return NextResponse.json(
                 { message: 'Verification code is missing' },
                 { status: 400 }
@@ -16,7 +16,7 @@ export const POST = async (req: NextRequest) => {
 
         const user = await prisma.user.findFirst({
             where: {
-                verificationToken: verificationToken,
+                verificationToken: verifycode,
                 verificationExpiry: { gt: new Date() }
             }
         });
