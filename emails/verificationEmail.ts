@@ -1,6 +1,6 @@
 export const verificationEmailTemplate = (
-    verificationUrl: string,
-    userName: string
+  verificationToken: string,
+  userName: string
 ) => `
   <!DOCTYPE html>
   <html lang="en">
@@ -32,14 +32,16 @@ export const verificationEmailTemplate = (
           font-size: 16px;
           color: #333333;
         }
-        .verification-link {
-          display: inline-block;
+        .verification-code {
+          display: block;
           margin-top: 20px;
-          padding: 10px 20px;
+          padding: 10px;
           background-color: #4CAF50;
           color: #ffffff;
-          text-decoration: none;
+          font-size: 18px;
+          text-align: center;
           border-radius: 4px;
+          letter-spacing: 2px;
         }
         .footer {
           font-size: 12px;
@@ -53,8 +55,8 @@ export const verificationEmailTemplate = (
         <div class="email-header">Verify Your Email Address</div>
         <div class="email-body">
           <p>Hello ${userName},</p>
-          <p>Thank you for signing up! Please confirm your email address by clicking the button below:</p>
-          <a href="${verificationUrl}" class="verification-link">Verify Email</a>
+          <p>Thank you for signing up! Please use the following verification code to confirm your email address:</p>
+          <div class="verification-code">${verificationToken}</div>
           <p>If you did not sign up for this account, you can ignore this email.</p>
           <p class="footer">Thank you,<br />Your Company Team</p>
         </div>
