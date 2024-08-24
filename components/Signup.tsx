@@ -32,7 +32,7 @@ const Signup = () => {
             const result = response.data;
             if (result.success) {
                 toast.success('User created successfully!');
-                router.push('/signin');
+                router.push('/verify-email');
             }
         } catch (error: any) {
             if (error.response && error.response.data) {
