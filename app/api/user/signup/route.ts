@@ -26,7 +26,7 @@ export const POST = async (req: NextRequest) => {
 
         const hashedPassword = await bcrypt.hash(password, 10);
 
-        const verificationToken = randomBytes(32).toString('hex');
+        const verificationToken =  Math.floor(100000 + Math.random() * 900000).toString().padStart(6, '0');
         const verificationExpiry = new Date(Date.now() + 1000 * 60 * 60 * 24);
 
         const user = await prisma.user.create({
