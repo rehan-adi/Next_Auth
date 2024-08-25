@@ -52,12 +52,12 @@ const VerifyEmail = () => {
                         name="verifyCode"
                         value={verifycode}
                         onChange={(e) => setVerifycode(e.target.value)}
-                        className="w-full px-4 py-2 rounded-lg bg-[#22335b] text-white border border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                        className="w-full px-4 py-2 rounded-lg bg-[#22335b] text-white border border-white border-opacity-25 focus:outline-none focus:ring-2"
                         placeholder="Enter your code"
                     />
                     <button
                         type="submit"
-                        className={`mt-4 w-full py-3 text-sm bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-500 transition duration-200 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
+                        className={`mt-7 w-full py-3 text-sm bg-indigo-600 text-white font-semibold rounded-lg hover:bg-indigo-500 transition duration-200 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : ''}`}
                     >
                         {isSubmitting ? 'Verify Code...' : 'Verify Code'}
                     </button>

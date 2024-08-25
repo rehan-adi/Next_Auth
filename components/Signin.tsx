@@ -102,7 +102,7 @@ const Signin = () => {
                                         </a>
                                     </div>
                                 </div>
-                                <div className="mt-2">
+                                <div className="mt-2 mb-8">
                                     <input
                                         id="password"
                                         type="password"

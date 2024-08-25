@@ -59,7 +59,7 @@ const Signup = () => {
                     <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
                         <form
                             onSubmit={handleSubmit(onSubmit)}
-                            className="space-y-6"
+                            className="space-y-4"
                         >
                             <div>
                                 <label
@@ -125,7 +125,7 @@ const Signup = () => {
                                         </a>
                                     </div>
                                 </div>
-                                <div className="mt-2">
+                                <div className="mt-2 mb-8">
                                     <input
                                         id="password"
                                         type="password"
