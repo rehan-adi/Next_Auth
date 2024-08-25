@@ -75,7 +75,7 @@ const Signin = () => {
                                         required
                                         autoComplete="email"
                                         {...register('email')}
-                                        className="block w-full rounded-md border border-white outline-none bg-[#22335b] py-2 shadow-sm text-white sm:text-sm px-3 sm:leading-6"
+                                        className="block w-full rounded-md border border-white border-opacity-25 outline-none bg-[#22335b] py-2 shadow-sm text-white sm:text-sm px-3 sm:leading-6"
                                     />
                                     {errors.email && (
                                         <p className="text-red-500">
@@ -109,7 +109,7 @@ const Signin = () => {
                                         required
                                         autoComplete="current-password"
                                         {...register('password')}
-                                        className="block w-full rounded-md border px-3 border-white outline-none bg-[#22335b] py-2  shadow-sm sm:text-sm text-white sm:leading-6"
+                                        className="block w-full rounded-md border px-3 border-white border-opacity-25 outline-none bg-[#22335b] py-2  shadow-sm sm:text-sm text-white sm:leading-6"
                                     />
                                     {errors.password && (
                                         <p className="text-red-500">
@@ -119,7 +119,7 @@ const Signin = () => {
                                 </div>
                             </div>
 
-                            <div className="mt-4">
+                            <div className="mt-8">
                                 <button
                                     type="submit"
                                     disabled={isSubmitting}
