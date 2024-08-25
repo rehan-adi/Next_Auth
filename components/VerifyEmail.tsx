@@ -23,7 +23,9 @@ const VerifyEmail = () => {
             if (response.status === 200) {
                 setStatus('success');
                 setMessage('Your email has been successfully verified!');
-                router.push('/signin');
+                setTimeout(() => {
+                    router.push('/signin');
+                }, 2000);
             }
         } catch (error: any) {
             setStatus('error');
